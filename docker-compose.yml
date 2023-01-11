@@ -26,7 +26,7 @@ services:
       - reservation_system
     volumes:
       - ./services/gateway_service:/var/www/html
-      - ./services/db_connect:/var/www/html
+      - ./services/db_connect:/var/www/html/db_connect
 
   reservation_system:
     build: services

@@ -1,5 +1,5 @@
 <?php
-
+// error_reporting(0);
 require_once __DIR__.'/router.php';
 
 // ##################################################
@@ -8,7 +8,9 @@ require_once __DIR__.'/router.php';
 
 // проверка работоспособности сайта
 get('/manage/health', 'src/health.php');
+// получить список библиотек
 get('/api/v1/libraries', "src/get_libraries.php");
+// получить книги из библиотеки
 get('/api/v1/libraries/$libraryUid/books', 'src/get_books.php');
 
 
