@@ -19,7 +19,7 @@ services:
     container_name: gateway_service
     restart: always
     ports:
-      - "8080:8080"
+      - "8080:80"
     depends_on:
       - library_system
       - rating_system
@@ -27,46 +27,42 @@ services:
     volumes:
       - ./services/gateway_service:/var/www/html
       - ./services/db_connect:/var/www/html
-    command: php -S 0.0.0.0:8080
 
   reservation_system:
     build: services
     container_name: reservation_system
     restart: always
     ports:
-      - "8070:8070"
+      - "8070:80"
     depends_on:
       - postgres
     volumes:
       - ./services/reservation_system:/var/www/html
       - ./services/db_connect:/var/www/html
-    command: php -S 0.0.0.0:8070
 
   library_system:
     build: services
     container_name: library_system
     restart: always
     ports:
-      - "8060:8060"
+      - "8060:80"
     depends_on:
       - postgres
     volumes:
       - ./services/library_system:/var/www/html
       - ./services/db_connect:/var/www/html
-    command: php -S 0.0.0.0:8060
 
   rating_system:
     build: services
     container_name: rating_system
     restart: always
     ports:
-      - "8050:8050"
+      - "8050:80"
     depends_on:
       - postgres
     volumes:
       - ./services/library_system:/var/www/html
       - ./services/db_connect:/var/www/html
-    command: php -S 0.0.0.0:8050
 
 volumes:
   db-data:
