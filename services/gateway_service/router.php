@@ -34,7 +34,12 @@ function route($route, $path_to_include){
   $request_url_parts = explode('/', $request_url);
   array_shift($route_parts);
   array_shift($request_url_parts);
-
+  $parts = explode('&', $request_url_parts[count($request_url_parts)-1]);
+  $request_url_parts[count($request_url_parts)-1] = $parts[0];
+  for($i = 1; $i < count($parts); $i++){
+      $p = explode('=', $parts[$i]);
+      $_GET["$p[0]"] = $p[1];
+  }
   if( $route_parts[0] == '' && count($request_url_parts) == 0 ){
     // Callback function
     if( is_callable($callback) ){
