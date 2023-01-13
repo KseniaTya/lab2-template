@@ -17,6 +17,8 @@ get('/api/v1/reservations', 'src/get_reservations.php');
 // взять книгу в библиотеке
 post('/api/v1/reservations', 'src/post_reservations.php');
 
+get('/test', 'tests/index.php');
+
 // -- Example:
 
 // Static GET

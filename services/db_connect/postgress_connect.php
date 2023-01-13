@@ -6,15 +6,6 @@
     // подключение к бд
     $connect = pg_connect("host=$host port=5432 dbname=$db user=$login password=$password");
     create_and_insert($connect);
-    // drop_tables($connect);
-
-//    $result = pg_query($connect, "select * from pg_database;");
-//    $f = pg_fetch_all($result);
-//
-//    foreach ($f as $r){
-//        print_r($r);
-//        echo "<br><br>";
-//    }
 
     function create_and_insert($connect){
         // получение списка таблиц из бд
@@ -87,11 +78,3 @@
             ');
         }
     }
-    function drop_tables($connect){
-            pg_query($connect, "DROP TABLE reservation CASCADE");
-            pg_query($connect, "DROP TABLE library CASCADE");
-            pg_query($connect, "DROP TABLE books CASCADE");
-            pg_query($connect, "DROP TABLE library_books CASCADE");
-            pg_query($connect, "DROP TABLE rating CASCADE");
-    }
-
