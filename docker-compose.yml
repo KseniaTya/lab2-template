@@ -38,7 +38,7 @@ services:
       - postgres
     volumes:
       - ./services/reservation_system:/var/www/html
-      - ./services/db_connect:/var/www/html
+      - ./services/db_connect:/var/www/html/db_connect
 
   library_system:
     build: services
@@ -50,7 +50,7 @@ services:
       - postgres
     volumes:
       - ./services/library_system:/var/www/html
-      - ./services/db_connect:/var/www/html
+      - ./services/db_connect:/var/www/html/db_connect
 
   rating_system:
     build: services
@@ -61,8 +61,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./services/library_system:/var/www/html
-      - ./services/db_connect:/var/www/html
+      - ./services/rating_system:/var/www/html
+      - ./services/db_connect:/var/www/html/db_connect
 
 volumes:
   db-data:

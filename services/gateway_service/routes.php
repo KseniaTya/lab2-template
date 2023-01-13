@@ -12,7 +12,10 @@ get('/manage/health', 'src/health.php');
 get('/api/v1/libraries', "src/get_libraries.php");
 // получить книги из библиотеки
 get('/api/v1/libraries/$libraryUid/books', 'src/get_books.php');
-
+// получить список взятых в прокат в прокат книг
+get('/api/v1/reservations', 'src/get_reservations.php');
+// взять книгу в библиотеке
+post('/api/v1/reservations', 'src/post_reservations.php');
 
 // -- Example:
 
