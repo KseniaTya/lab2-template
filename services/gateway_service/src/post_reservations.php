@@ -9,7 +9,7 @@ include "./utils.php";
     $numBooks = curl("http://reservation_system:80/num_books?username=$username");
     $numStars = curl("http://rating_system:80/num_stars?username=$username");
     $available_count  = curl("http://library_system:80/getBook?book_uid=$bookUid&library_uid=$libraryUid");
-    echo "available_count = $available_count ";
+    // echo "available_count = $available_count ";
     //echo "tillDate = $tillDate numBooks = $numBooks numStars = $numStars";
     if($numBooks < $numStars && $available_count > 0){
         // процесс взятия книги
