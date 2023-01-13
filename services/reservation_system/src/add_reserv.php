@@ -6,7 +6,6 @@ $username = $_GET['username'];
 $book_uid = $_GET['book_uid'];
 $library_uid = $_GET['library_uid'];
 $till_date =  date('Y-m-d H:i:s', strtotime(urldecode($_GET['till_date'])));
-echo urldecode($_GET['till_date']);
 $uuid = uniqid("", true).uniqid();
 $uuid[8] = '-'; $uuid[13] = '-'; $uuid[14] = '0'; $uuid[18] = '-'; $uuid[23] = '-';
 
