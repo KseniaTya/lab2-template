@@ -15,3 +15,4 @@ get('/count_book', "src/count_book.php");
 get('/getBook', "src/getBook.php");
 get('/get_book_by_uid', 'src/get_book_by_uid.php');
 get('/change_condition_book', 'src/change_condition_book.php');
+get('/get_library_by_uid', 'src/get_library_by_uid.php');
