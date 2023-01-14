@@ -7,5 +7,5 @@ $id_book = pg_fetch_all(pg_query($connect,
 $id_library = pg_fetch_all(pg_query($connect,
     "select id from library where library_uid='".$_GET['library_uid']."'"))[0]['id'];
 
-pg_query($connect, "update library_books set available_count=available_count-1 where book_id='$id_book' and library_id='$id_library'");
+pg_query($connect, "update library_books set available_count=available_count+'".$_GET['count']."' where book_id='$id_book' and library_id='$id_library'");
 
