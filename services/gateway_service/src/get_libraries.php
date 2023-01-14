@@ -8,7 +8,23 @@ header('Content-Type: application/json; charset=utf-8');
     }
     else {
         include "./utils.php";
-        echo curl("http://library_system:80/get_libraries?city=$city&page=$page&size=$size");
+        $array = json_decode(curl("http://library_system:80/get_libraries?city=$city&page=$page&size=$size"));
+        $items = array_map(fn($item) => [
+              "libraryUid"=> $item -> library_uid,
+              "name"=> $item -> name,
+              "address"=> $item -> address,
+              "city"=> $item -> city
+            ], $array);
+        $result = [
+            "page" => $page+1,
+            "pageSize" => $size,
+            "totalElements" => count($items),
+            "items" => $items
+            ];
+        echo json_encode($result);
+
+
+
 
     }
 
