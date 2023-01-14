@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
     $page = $_GET['page'] ?? 0;
     $size = $_GET['size'] ?? 50;
     $city = $_GET['city'] ?? "null";

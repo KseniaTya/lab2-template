@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 include "./utils.php";
 $condition = $_POST['condition'];
 $date = urlencode($_POST['date']);
