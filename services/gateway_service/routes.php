@@ -18,6 +18,9 @@ get('/api/v1/reservations', 'src/get_reservations.php');
 post('/api/v1/reservations', 'src/post_reservations.php');
 // вернуть книгу из библиотеки
 post('/api/v1/reservations/$reservationUid/return', 'src/post_return_book.php');
+// получить рейтинг пользователя
+get('/api/v1/rating', 'src/get_rating.php');
+
 // доступ к тестам с уже введенными входным данным
 get('/test', 'tests/index.php');
 
