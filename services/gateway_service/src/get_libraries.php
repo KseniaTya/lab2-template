@@ -17,7 +17,7 @@ header('Content-Type: application/json; charset=utf-8');
             ], $array);
         $result = [
             "page" => $page+1,
-            "pageSize" => $size,
+            "pageSize" => count($items) < $size ? count($items):$size,
             "totalElements" => count($items),
             "items" => $items
             ];
