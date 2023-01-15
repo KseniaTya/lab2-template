@@ -23,25 +23,26 @@ include "./utils.php";
         $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
         $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
         $book = $reservation->book;
+        $library = $reservation->library;
         $result = "{
           \"reservationUid\": \"$reservation->reservationUid\",
           \"status\": \"$reservation->status\",
-          \"startDate\": \"2023-01-15\",
-          \"tillDate\": \"2021-10-11\",
+          \"startDate\": \"$reservation->startDate\",
+          \"tillDate\": \"$reservation->tillDate\",
           \"book\": {
-            \"bookUid\": \"f7cdc58f-2caf-4b15-9727-f89dcc629b27\",
+            \"bookUid\": \"$book->bookUid\",
             \"name\": \"$book->name\",
-            \"author\": \"Бьерн Страуструп\",
-            \"genre\": \"Научная фантастика\"
+            \"author\": \"$book->author\",
+            \"genre\": \"$book->genre\"
           },
           \"library\": {
-            \"libraryUid\": \"83575e12-7ce0-48ee-9931-51919ff3c9ee\",
-            \"name\": \"Библиотека имени 7 Непьющих\",
-            \"address\": \"2-я Бауманская ул., д.5, стр.1\",
-            \"city\": \"Москва\"
+            \"libraryUid\": \"$library->libraryUid\",
+            \"name\": \"$library->name\",
+            \"address\": \"$library->address\",
+            \"city\": \"$library->city\"
           },
           \"rating\": {
-            \"stars\": 75
+            \"stars\": \"$rating->stars\"
           }
         }";
         echo $result;
