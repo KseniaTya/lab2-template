@@ -19,9 +19,11 @@ include "./utils.php";
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
-        $result = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
-        $result = (object) array_merge((array)$result, (array)json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia'])));
-        echo json_encode($result);
+        $result1 = (array)json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
+        $result2 = (array)json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
+        $result = array_merge($result1, $result2);
+        echo json_encode($result1);
+
 
     }else{
         echo json_encode(["message" => "numBooks > numStars or available_count == 0"]);
