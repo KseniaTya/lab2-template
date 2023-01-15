@@ -24,7 +24,7 @@ include "./utils.php";
         echo json_encode($result);
 
     }else{
-        echo "numBooks > numStars or available_count == 0 ";
+        echo '{"message" : "numBooks > numStars or available_count == 0"';
     }
 
     function validate($array, $func, $err_code){
