@@ -24,7 +24,7 @@ include "./utils.php";
         $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
         $book = $reservation->book;
         $result = "{
-          \"reservationUid\": \"$reservation->reservation_uid\",
+          \"reservationUid\": \"$reservation->reservationUid\",
           \"status\": \"$reservation->status\",
           \"startDate\": \"2023-01-15\",
           \"tillDate\": \"2021-10-11\",
