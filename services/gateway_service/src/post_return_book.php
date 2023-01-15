@@ -5,8 +5,10 @@ $condition = $_POST['condition'];
 $date = urlencode($_POST['date']);
 $username= getallheaders()['X-User-Name'] ?? "Test_User";
 // сдать книгу и получить данные о книге из резервации
+
 $reservationData = curl("http://reservation_system:80/return_book?username=$username&reservationUid=$reservationUid&date=$date");
 if($reservationData == "[]"){
+    http_response_code(400);
     echo "Error";
 }
 else{
@@ -27,10 +29,7 @@ else{
     if($stars == 0){
         $stars+= 1;
     }
-    //todo
     curl("http://rating_system:80/change_rating?username=$username&stars=$stars");
-
-
     // изменить рейтинг
 
 }
