@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
 include "./utils.php";
     $input= json_decode(file_get_contents('php://input'), TRUE );
     $bookUid = $input['bookUid'] ?? null;
@@ -23,7 +23,7 @@ include "./utils.php";
         $result1 = (array)json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
         $result2 = (array)json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
         $result = array_merge($result1, $result2);
-        echo json_encode($result1);
+        echo json_encode($result);
 
 
     }else{
