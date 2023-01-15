@@ -33,10 +33,12 @@ else{
     if($stars == 0){
         $stars+= 1;
     }
-    http_response_code(204);
     curl("http://rating_system:80/change_rating?username=$username&stars=$stars");
-    // изменить рейтинг
-
+    echo ("
+        \"condition\": \"$condition\",
+        \"date\": \"$arr->till_date\"
+    ");
+    //http_response_code(204);
 }
 
 

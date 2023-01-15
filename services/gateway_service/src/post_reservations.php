@@ -16,7 +16,7 @@ include "./utils.php";
     // echo "available_count = $available_count ";
     //echo "tillDate = $tillDate numBooks = $numBooks numStars = $numStars";
     if($numBooks < $numStars && $available_count > 0){
-        http_response_code(200);
+
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
@@ -46,35 +46,11 @@ include "./utils.php";
             \"stars\": \"$rating\"
           }
         }";
-       echo $result;
-        //  echo $result;
-        /*$result = "{
-          \"reservationUid\": \"f464ca3a-fcf7-4e3f-86f0-76c7bba96f72\",
-          \"status\": \"RENTED\",
-          \"startDate\": \"2023-01-15\",
-          \"tillDate\": \"2021-10-11\",
-          \"book\": {
-            \"bookUid\": \"f7cdc58f-2caf-4b15-9727-f89dcc629b27\",
-            \"name\": \"Краткий курс C++ в 7 томах\",
-            \"author\": \"Бьерн Страуструп\",
-            \"genre\": \"Научная фантастика\"
-          },
-          \"library\": {
-            \"libraryUid\": \"83575e12-7ce0-48ee-9931-51919ff3c9ee\",
-            \"name\": \"Библиотека имени 7 Непьющих\",
-            \"address\": \"2-я Бауманская ул., д.5, стр.1\",
-            \"city\": \"Москва\"
-          },
-          \"rating\": {
-            \"stars\": 75
-          }
-        }";*/
-
-
-       // echo json_encode($reservation);
+        http_response_code(200);
+        echo $result;
 
     }else{
-        http_response_code(400);
+        http_response_code(401);
         echo json_encode(["message" => "numBooks > numStars or available_count == 0"]);
     }
 
