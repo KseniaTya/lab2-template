@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 include "./utils.php";
-
+    echo $_POST['bookUid'];
     $bookUid = $_POST['bookUid'] ?? null;
     $libraryUid = $_POST['libraryUid'] ?? null;;
     $tillDate = $_POST['tillDate'] ?? null;;
