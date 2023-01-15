@@ -4,8 +4,8 @@ header('Content-Type: application/json; charset=utf-8');
     include "./utils.php";
 
     $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));
-    $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation[0] -> book_uid));
-    $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation[0] -> library_uid));
+    $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation[0]->book_uid));
+    $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation[0]->library_uid));
 
     $reserv = $reservation[0];
     $result = [

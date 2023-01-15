@@ -17,7 +17,7 @@ else {
         "author"=> $item -> author,
         "genre"=> $item -> genre,
         "condition" => $item -> condition,
-        "availableCount" => $item -> availableCount
+        "availableCount" => $item -> available_count
     ], $array);
     $result = [
         "page" => $page+1,
