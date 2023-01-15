@@ -38,7 +38,7 @@ else{
         \"condition\": \"$condition\",
         \"date\": \"$arr->till_date\"
     ");
-    //http_response_code(204);
+    http_response_code(204);
 }
 
 
