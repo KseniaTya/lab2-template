@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-    $page = $_GET['page'] ?? 0;
+    $page = $_GET['page'] ?? 1;
     $size = $_GET['size'] ?? 50;
     $city = $_GET['city'] ?? "null";
     if($size < 0 || $page < 0){
@@ -16,7 +16,7 @@ header('Content-Type: application/json; charset=utf-8');
               "city"=> $item -> city
             ], $array);
         $result = [
-            "page" => $page+1,
+            "page" => $page,
             "pageSize" => count($items) < $size ? count($items):$size,
             "totalElements" => count($items),
             "items" => $items

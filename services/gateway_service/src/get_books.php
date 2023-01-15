@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-$page = $_GET['page'] ?? 0;
+$page = $_GET['page'] ?? 1;
 $size = $_GET['size'] ?? 50;
 if($size < 0 || $page < 0){
     echo "incorrect values!";
@@ -20,7 +20,7 @@ else {
         "availableCount" => $item -> available_count
     ], $array);
     $result = [
-        "page" => $page+1,
+        "page" => $page,
         "pageSize" => count($items) < $size ? count($items):$size,
         "totalElements" => count($items),
         "items" => $items

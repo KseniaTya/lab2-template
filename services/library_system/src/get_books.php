@@ -8,7 +8,13 @@
                 left join books on library_books.book_id = books.id
                 where library.library_uid='".$_GET['libraryUid']."' 
                 ".($_GET['showAll']=='true'?"":
-                " and library_books.available_count > 0 ")."
-                offset ".$_GET['page']*$_GET['size']." limit ".$_GET['size'].";"
+                " and library_books.available_count > 0 ").";"
     ));
-    echo json_encode($result);
+    $res = array_chunk($result, $_GET['size']);
+    if ($res == Array()){
+        echo "[]";
+    } else{
+        echo count($res) < $_GET['page'] ?
+            json_encode($res[$_GET['page']-1]):
+            json_encode($res[count($res)-1]);
+    }

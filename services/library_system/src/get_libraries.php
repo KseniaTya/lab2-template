@@ -8,11 +8,8 @@
          echo "[]";
     } else{
         echo count($res) < $_GET['page'] ?
-            prepareJSON($res[$_GET['page']]):
-            prepareJSON($res[count($res)-1]);
+            json_encode($res[$_GET['page']-1]):
+            json_encode($res[count($res)-1]);
     }
 
-    function prepareJSON($array):string{
-        return json_encode($array);
-    }
 
