@@ -1,15 +1,15 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 include "./utils.php";
-    echo $_POST['bookUid'];
-    $bookUid = $_POST['bookUid'] ?? null;
-    $libraryUid = $_POST['libraryUid'] ?? null;;
-    $tillDate = $_POST['tillDate'] ?? null;;
+    $input= json_decode( file_get_contents('php://input'), TRUE );
+    $bookUid = $input['bookUid'] ?? null;
+    $libraryUid = $input['libraryUid'] ?? null;;
+    $tillDate = $input['tillDate'] ?? null;;
     $username= getallheaders()['X-User-Name'] ?? null;;
 
     validate(compact('bookUid', 'libraryUid', 'tillDate', 'username'), "validate_null", 400);
 
-    $tillDate = urlencode($_POST['tillDate']);
+    $tillDate = urlencode($input['tillDate']);
     $numBooks = curl("http://reservation_system:80/num_books?username=$username");
     $numStars = curl("http://rating_system:80/num_stars?username=$username");
     $available_count  = curl("http://library_system:80/getBook?book_uid=$bookUid&library_uid=$libraryUid");
