@@ -16,6 +16,7 @@ include "./utils.php";
     // echo "available_count = $available_count ";
     //echo "tillDate = $tillDate numBooks = $numBooks numStars = $numStars";
     if($numBooks < $numStars && $available_count > 0){
+        http_response_code(200);
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
@@ -26,6 +27,7 @@ include "./utils.php";
 
 
     }else{
+        http_response_code(400);
         echo json_encode(["message" => "numBooks > numStars or available_count == 0"]);
     }
 
