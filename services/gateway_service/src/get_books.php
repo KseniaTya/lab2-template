@@ -25,7 +25,6 @@ else {
         "totalElements" => count($items),
         "items" => $items
     ];
-    echo json_encode($result);
+    echo normJsonStr(json_encode($result,JSON_PRETTY_PRINT));
 
 }
-

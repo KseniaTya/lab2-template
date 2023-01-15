@@ -20,33 +20,10 @@ include "./utils.php";
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
-        $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
+        $reservation = (array)json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
         $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
-        $book = $reservation->book;
-        $library = $reservation->library;
-        $result = "{
-          \"reservationUid\": \"$reservation->reservationUid\",
-          \"status\": \"$reservation->status\",
-          \"startDate\": \"$reservation->startDate\",
-          \"tillDate\": \"$reservation->tillDate\",
-          \"book\": {
-            \"bookUid\": \"$book->bookUid\",
-            \"name\": \"$book->name\",
-            \"author\": \"$book->author\",
-            \"genre\": \"$book->genre\"
-          },
-          \"library\": {
-            \"libraryUid\": \"$library->libraryUid\",
-            \"name\": \"$library->name\",
-            \"address\": \"$library->address\",
-            \"city\": \"$library->city\"
-          },
-          \"rating\": {
-            \"stars\": \"$rating->stars\"
-          }
-        }";
-        echo $result;
-       // echo json_encode($reservation);
+        $reservation["stars"] = $rating->stars;
+        echo normJsonStr(json_encode($reservation));
 
     }else{
         http_response_code(400);

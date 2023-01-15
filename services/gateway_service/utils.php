@@ -38,3 +38,7 @@ function validate($array, $func, $err_code){
 function validate_null($k, $v, $message):array{
     return $v != null ? [] : ["$k" => "$message"];
 }
+function normJsonStr($str){
+    $str = preg_replace_callback('/\\\\u([a-f0-9]{4})/i', fn($m) => chr(hexdec($m[1])-1072+224), $str);
+    return iconv('cp1251', 'utf-8', $str);
+}

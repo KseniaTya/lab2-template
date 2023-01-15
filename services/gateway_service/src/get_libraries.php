@@ -21,10 +21,7 @@ header('Content-Type: application/json; charset=utf-8');
             "totalElements" => count($items),
             "items" => $items
             ];
-        echo json_encode($result);
-
-
-
+        $json = json_encode($result, JSON_PRETTY_PRINT);
+        echo normJsonStr($json);
 
     }
-

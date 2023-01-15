@@ -5,4 +5,4 @@ include("./db_connect/postgress_connect.php");
 $result = pg_fetch_all(pg_query($connect,
     "select * from reservation where username='".$_GET['username']."'"
 ));
-echo json_encode($result);
+echo json_encode($result[0]);

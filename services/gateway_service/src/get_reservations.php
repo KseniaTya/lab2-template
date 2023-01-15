@@ -4,14 +4,13 @@ header('Content-Type: application/json; charset=utf-8');
     include "./utils.php";
 
     $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));
-    $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation[0]->book_uid));
-    $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation[0]->library_uid));
-    $reserv = $reservation[0];
+    $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation->book_uid));
+    $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation->library_uid));
     $result = [
-        "reservationUid" => $reserv->reservation_uid,
-        "status" => "RENTED",
-        "startDate" => "$reserv->start_date",
-        "tillDate" => "$reserv->till_date",
+        "reservationUid" => $reservation->reservation_uid,
+        "status" => $reservation->status,
+        "startDate" => "$reservation->start_date",
+        "tillDate" => "$reservation->till_date",
         "book" => [
             "bookUid" => "$book->book_uid",
             "name" => "$book->name",
@@ -25,5 +24,5 @@ header('Content-Type: application/json; charset=utf-8');
             "city" => "$library->city"
         ]
     ];
-    echo json_encode($result);
+    echo normJsonStr(json_encode($result));
 
