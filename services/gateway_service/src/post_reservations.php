@@ -7,7 +7,7 @@ include "./utils.php";
     $tillDate = $input['tillDate'] ?? null;;
     $username= getallheaders()['X-User-Name'] ?? null;;
 
-    validate(compact('bookUid', 'libraryUid', 'tillDate', 'username'), "validate_null", 400);
+    validate(compact('bookUid', 'libraryUid', 'tillDate', 'username'), "validate_null", 404);
 
     $tillDate = urlencode($input['tillDate']);
     $numBooks = curl("http://reservation_system:80/num_books?username=$username");
