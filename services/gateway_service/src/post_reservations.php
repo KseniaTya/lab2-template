@@ -22,14 +22,15 @@ include "./utils.php";
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
         $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
         $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
+        $book = $reservation->book;
         $result = "{
-          \"reservationUid\": \"f464ca3a-fcf7-4e3f-86f0-76c7bba96f72\",
-          \"status\": \"RENTED\",
+          \"reservationUid\": \"$reservation->reservation_uid\",
+          \"status\": \"$reservation->status\",
           \"startDate\": \"2023-01-15\",
           \"tillDate\": \"2021-10-11\",
           \"book\": {
             \"bookUid\": \"f7cdc58f-2caf-4b15-9727-f89dcc629b27\",
-            \"name\": \"Краткий курс C++ в 7 томах\",
+            \"name\": \"$book->name\",
             \"author\": \"Бьерн Страуструп\",
             \"genre\": \"Научная фантастика\"
           },
