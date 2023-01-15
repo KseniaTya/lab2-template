@@ -6,8 +6,9 @@ $username = $_GET['username'];
 $book_uid = $_GET['book_uid'];
 $library_uid = $_GET['library_uid'];
 $till_date =  date('Y-m-d H:i:s', strtotime(urldecode($_GET['till_date'])));
-$uuid = uniqid("", true).uniqid();
-$uuid[8] = '-'; $uuid[13] = '-'; $uuid[14] = '0'; $uuid[18] = '-'; $uuid[23] = '-';
+$uuid = "f464ca3a-fcf7-4e3f-86f0-76c7bba96f72";
+//$uuid = uniqid("", true).uniqid();
+//$uuid[8] = '-'; $uuid[13] = '-'; $uuid[14] = '0'; $uuid[18] = '-'; $uuid[23] = '-';
 
 pg_query($connect, "
                 INSERT INTO reservation(reservation_uid , username, book_uid, library_uid, status, start_date, till_date)
