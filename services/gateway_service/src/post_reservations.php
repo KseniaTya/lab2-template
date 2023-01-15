@@ -23,28 +23,28 @@ include "./utils.php";
         $result1 = (array)json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: ksenia']));
         $result2 = (array)json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia']));
         $result = array_merge($result1, $result2);
-        //echo json_encode($result);
-        echo '{
-          "reservationUid": "f464ca3a-fcf7-4e3f-86f0-76c7bba96f72",
-          "status": "RENTED",
-          "startDate": "2023-01-15",
-          "tillDate": "2021-10-11",
-          "book": {
-            "bookUid": "f7cdc58f-2caf-4b15-9727-f89dcc629b27",
-            "name": "Краткий курс C++ в 7 томах",
-            "author": "Бьерн Страуструп",
-            "genre": "Научная фантастика"
-          },
-          "library": {
-            "libraryUid": "83575e12-7ce0-48ee-9931-51919ff3c9ee",
-            "name": "Библиотека имени 7 Непьющих",
-            "address": "2-я Бауманская ул., д.5, стр.1",
-            "city": "Москва"
-          },
-          "rating": {
-            "stars": 75
-          }
-        }';
+        echo json_encode($result, JSON_UNESCAPED_UNICODE );
+//        echo '{
+//          "reservationUid": "f464ca3a-fcf7-4e3f-86f0-76c7bba96f72",
+//          "status": "RENTED",
+//          "startDate": "2023-01-15",
+//          "tillDate": "2021-10-11",
+//          "book": {
+//            "bookUid": "f7cdc58f-2caf-4b15-9727-f89dcc629b27",
+//            "name": "Краткий курс C++ в 7 томах",
+//            "author": "Бьерн Страуструп",
+//            "genre": "Научная фантастика"
+//          },
+//          "library": {
+//            "libraryUid": "83575e12-7ce0-48ee-9931-51919ff3c9ee",
+//            "name": "Библиотека имени 7 Непьющих",
+//            "address": "2-я Бауманская ул., д.5, стр.1",
+//            "city": "Москва"
+//          },
+//          "rating": {
+//            "stars": 75
+//          }
+//        }';
 
     }else{
         http_response_code(400);
