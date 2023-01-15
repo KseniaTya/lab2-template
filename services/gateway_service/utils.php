@@ -23,3 +23,18 @@ function curl_post($url, $post_vars = "", $head_vars = []){
 
     return $html;
 }
+
+function validate($array, $func, $err_code){
+    $result = [];
+    foreach ($array as $k => $v){
+        $result += $func($k, $v, "variable isnt set");
+    }
+    if($result != []){
+        http_response_code($err_code);
+        echo json_encode($result);
+        exit;
+    }
+}
+function validate_null($k, $v, $message):array{
+    return $v != null ? [] : ["$k" => "$message"];
+}

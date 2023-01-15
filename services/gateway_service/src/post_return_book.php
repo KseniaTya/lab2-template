@@ -1,15 +1,19 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 include "./utils.php";
-$condition = $_POST['condition'];
-$date = urlencode($_POST['date']);
-$username= getallheaders()['X-User-Name'] ?? "Test_User";
+$input = json_decode( file_get_contents('php://input'), TRUE );
+
+$condition = $input['condition'] ?? null;
+$date = $input['date'] ?? null;
+$username= getallheaders()['X-User-Name'] ?? null;
 // сдать книгу и получить данные о книге из резервации
+validate(compact('condition', 'date', 'username'), "validate_null", 400);
+
+$date = urlencode($input['date']);
 
 $reservationData = curl("http://reservation_system:80/return_book?username=$username&reservationUid=$reservationUid&date=$date");
 if($reservationData == "[]"){
-    http_response_code(400);
-    echo "Error";
+    http_response_code(404);
 }
 else{
     $arr = json_decode($reservationData);
@@ -29,6 +33,7 @@ else{
     if($stars == 0){
         $stars+= 1;
     }
+    http_response_code(204);
     curl("http://rating_system:80/change_rating?username=$username&stars=$stars");
     // изменить рейтинг
 

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 include "./utils.php";
-    $input= json_decode( file_get_contents('php://input'), TRUE );
+    $input= json_decode(file_get_contents('php://input'), TRUE );
     $bookUid = $input['bookUid'] ?? null;
     $libraryUid = $input['libraryUid'] ?? null;;
     $tillDate = $input['tillDate'] ?? null;;
@@ -25,21 +25,6 @@ include "./utils.php";
 
     }else{
         echo json_encode(["message" => "numBooks > numStars or available_count == 0"]);
-    }
-
-    function validate($array, $func, $err_code){
-        $result = [];
-        foreach ($array as $k => $v){
-            $result += $func($k, $v, "variable isnt set");
-        }
-        if($result != []){
-            http_response_code($err_code);
-            echo json_encode($result);
-            exit;
-        }
-    }
-    function validate_null($k, $v, $message):array{
-        return $v != null ? [] : ["$k" => "$message"];
     }
 
 
