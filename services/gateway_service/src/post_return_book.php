@@ -35,11 +35,12 @@ else{
         $stars+= 1;
     }
     curl("http://rating_system:80/change_rating?username=$username&stars=$stars");
+    http_response_code(204);
     echo ("
         \"condition\": \"$condition\",
         \"date\": \"$arr->till_date\"
     ");
-    http_response_code(204);
+
 }
 
 

@@ -24,7 +24,7 @@ include "./utils.php";
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
 
-        $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: '.getallheaders()['X-User-Name']]));
+        $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: '.getallheaders()['X-User-Name']]))[0];
         $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia'.getallheaders()['X-User-Name']]));
         $result = (object) array_merge((array) $reservation, (array) $rating);
         http_response_code(200);

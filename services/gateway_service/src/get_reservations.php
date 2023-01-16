@@ -9,21 +9,23 @@ header('Content-Type: application/json; charset=utf-8');
     $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation->library_uid));
 
 $result = [
-    "reservationUid" => $reservation -> reservation_uid,
-    "status" => $reservation -> status,
-    "startDate" => explode(" ",$reservation -> start_date)[0],
-    "tillDate" => explode(" ",$reservation -> till_date)[0],
-    "book" => [
-        "bookUid" => $book -> book_uid,
-        "name" => $book -> name,
-        "author" => $book -> author,
-        "genre" => $book -> genre
-    ],
-    "library" => [
-        "libraryUid" => $library -> library_uid,
-        "name" => $library -> name,
-        "address" => $library -> address,
-        "city" => $library -> city
+    [
+        "reservationUid" => $reservation -> reservation_uid,
+        "status" => $reservation -> status,
+        "startDate" => explode(" ",$reservation -> start_date)[0],
+        "tillDate" => explode(" ",$reservation -> till_date)[0],
+        "book" => [
+            "bookUid" => $book -> book_uid,
+            "name" => $book -> name,
+            "author" => $book -> author,
+            "genre" => $book -> genre
+        ],
+        "library" => [
+            "libraryUid" => $library -> library_uid,
+            "name" => $library -> name,
+            "address" => $library -> address,
+            "city" => $library -> city
+        ]
     ]
 ];
 echo json_encode($result);
