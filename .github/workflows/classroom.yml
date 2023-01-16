@@ -31,6 +31,12 @@ jobs:
         env:
           WAIT_PORTS: 8080,8070,8060,8050
 
+      - name: My unit tests
+        run: |
+          curl http://localhost:8080/test?id_test=get_books.php
+          curl http://gateway_service:80/test?id_test=get_libraries.php
+
+
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
