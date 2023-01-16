@@ -20,40 +20,15 @@ include "./utils.php";
     //echo "tillDate = $tillDate numBooks = $numBooks numStars = $numStars";
     if($numBooks < $numStars && $available_count > 0){
 
-        echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode("numBooks = $numBooks numStars = $numStars available_count = $available_count username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate"));
-
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
         curl("http://library_system:80/count_book?book_uid=$bookUid&library_uid=$libraryUid&count=-1");
 
-        $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));
-
-        $rating = curl("http://rating_system:80/num_stars?username=$username");
-        $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation->book_uid));
-        $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation->library_uid));
-       $result = "{
-          \"reservationUid\": \"$reservation->reservation_uid\",
-          \"status\": \"$reservation->status\",
-          \"startDate\": \"$reservation->start_date\",
-          \"tillDate\": \"$reservation->till_date\",
-          \"book\": {
-            \"bookUid\": \"$book->book_uid\",
-            \"name\": \"$book->name\",
-            \"author\": \"$book->author\",
-            \"genre\": \"$book->genre\"
-          },
-          \"library\": {
-            \"libraryUid\": \"$library->library_uid\",
-            \"name\": \"$library->name\",
-            \"address\": \"$library->address\",
-            \"city\": \"$library->city\"
-          },
-          \"rating\": {
-            \"stars\": \"$rating\"
-          }
-        }";
+        $reservation = json_decode(curl("http://gateway_service:80/api/v1/reservations", ['X-User-Name: '.getallheaders()['X-User-Name']]));
+        $rating = json_decode(curl("http://gateway_service:80/api/v1/rating", ['X-User-Name: ksenia'.getallheaders()['X-User-Name']]));
+        $result = (object) array_merge((array) $reservation, (array) $rating);
         http_response_code(200);
-        echo $result;
+        echo json_encode($result);
 
     }else{
         http_response_code(401);
