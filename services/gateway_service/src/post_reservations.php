@@ -1,26 +1,25 @@
 <?php
-
-function func()
-{
-    header('Content-Type: application/json');
-    include "./utils.php";
+header('Content-Type: application/json');
+include "./utils.php";
 
 
-    $input = json_decode(file_get_contents('php://input'), TRUE);
+    $input= json_decode(file_get_contents('php://input'), TRUE );
     $bookUid = $input['bookUid'] ?? null;
     $libraryUid = $input['libraryUid'] ?? null;;
     $tillDate = $input['tillDate'] ?? null;;
-    $username = getallheaders()['X-User-Name'] ?? null;;
+    $username= getallheaders()['X-User-Name'] ?? null;;
 
     validate(compact('bookUid', 'libraryUid', 'tillDate', 'username'), "validate_null", 404);
 
     $tillDate = urlencode($input['tillDate']);
     $numBooks = curl("http://reservation_system:80/num_books?username=$username");
     $numStars = curl("http://rating_system:80/num_stars?username=$username");
-    $available_count = curl("http://library_system:80/getBook?book_uid=$bookUid&library_uid=$libraryUid");
+    $available_count  = curl("http://library_system:80/getBook?book_uid=$bookUid&library_uid=$libraryUid");
     // echo "available_count = $available_count ";
     //echo "tillDate = $tillDate numBooks = $numBooks numStars = $numStars";
-    if ($numBooks < $numStars && $available_count > 0) {
+    if($numBooks < $numStars && $available_count > 0){
+
+        echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode("numBooks = $numBooks numStars = $numStars available_count = $available_count username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate"));
 
         // процесс взятия книги
         curl("http://reservation_system:80/add_reserv?username=$username&book_uid=$bookUid&library_uid=$libraryUid&till_date=$tillDate");
@@ -29,9 +28,9 @@ function func()
         $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));
 
         $rating = curl("http://rating_system:80/num_stars?username=$username");
-        $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=" . $reservation->book_uid));
-        $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=" . $reservation->library_uid));
-        $result = "{
+        $book = json_decode(curl("http://library_system:80/get_book_by_uid?book_uid=".$reservation->book_uid));
+        $library = json_decode(curl("http://library_system:80/get_library_by_uid?library_uid=".$reservation->library_uid));
+       $result = "{
           \"reservationUid\": \"$reservation->reservation_uid\",
           \"status\": \"$reservation->status\",
           \"startDate\": \"$reservation->start_date\",
@@ -53,14 +52,12 @@ function func()
           }
         }";
         http_response_code(200);
-        return $result;
+        echo $result;
 
-    } else {
+    }else{
         http_response_code(401);
-        return json_encode(["message" => "numBooks > numStars or available_count == 0"]);
+        echo json_encode(["message" => "numBooks > numStars or available_count == 0"]);
     }
-}
 
-$rez = func();
-curl("http://blag3.yss.su/_temp/index.php?data=".urlencode($rez));
-echo $rez;
+
+
