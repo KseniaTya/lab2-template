@@ -34,7 +34,12 @@ jobs:
       - name: My unit tests
         run: |
           curl http://localhost:8080/test?id_test=get_books.php
-          curl http://gateway_service:80/test?id_test=get_libraries.php
+          curl http://localhost:8080/test?id_test=get_libraries.php
+          curl http://localhost:8080/test?id_test=get_rating.php
+          curl http://localhost:8080/test?id_test=post_reservations.php
+          curl http://localhost:8080/test?id_test=get_reservations.php
+          curl http://localhost:8080/test?id_test=post_return_book.php
+          curl http://localhost:8080/test?id_test=get_rating.php
 
 
       - name: Run API Tests
