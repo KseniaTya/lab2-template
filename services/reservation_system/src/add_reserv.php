@@ -2,7 +2,7 @@
 include("./db_connect/postgress_connect.php");
 /** @var $connect - переменная из postgress_connect.php с текцщим подключением к бд*/
 
-$username = $_GET['username'];
+$username = urldecode($_GET['username']);
 $book_uid = $_GET['book_uid'];
 $library_uid = $_GET['library_uid'];
 $till_date =  date('Y-m-d H:i:s', strtotime(urldecode($_GET['till_date'])));

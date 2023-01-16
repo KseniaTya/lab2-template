@@ -2,7 +2,7 @@
 include("./db_connect/postgress_connect.php");
 /** @var $connect - переменная из postgress_connect.php с текцщим подключением к бд */
 
-$username = $_GET['username'];
+$username = urldecode($_GET['username']);
 $stars = $_GET['stars'];
 $user = pg_fetch_all(pg_query($connect, "select * from rating where username = '$username'"))[0];
 $stars = $user['stars'] + $stars;

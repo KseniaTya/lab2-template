@@ -2,7 +2,9 @@
 include("./db_connect/postgress_connect.php");
 /** @var $connect - переменная из postgress_connect.php с текцщим подключением к бд*/
 
-$condition = " username='".$_GET['username']."' and reservation_uid = '".$_GET['reservationUid']."'";
+$username = urldecode($_GET['username']);
+
+$condition = " username='$username' and reservation_uid = '".$_GET['reservationUid']."'";
 $res = pg_fetch_all(pg_query($connect,
     "select * from reservation where".$condition." and status = 'RENTED'"
 ));

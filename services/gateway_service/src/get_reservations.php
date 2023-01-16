@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
     $username= getallheaders()['X-User-Name'] ?? "Test_User";
+    $username = urlencode($username);
     include "./utils.php";
 
     $reservation = json_decode(curl("http://reservation_system:80/get_reservations?username=$username"));

@@ -6,9 +6,10 @@ $input = json_decode( file_get_contents('php://input'), TRUE );
 $condition = $input['condition'] ?? null;
 $date = $input['date'] ?? null;
 $username= getallheaders()['X-User-Name'] ?? null;
+
 // сдать книгу и получить данные о книге из резервации
 validate(compact('condition', 'date', 'username'), "validate_null", 400);
-
+$username = urlencode($username);
 $date = urlencode($input['date']);
 
 $reservationData = curl("http://reservation_system:80/return_book?username=$username&reservationUid=$reservationUid&date=$date");

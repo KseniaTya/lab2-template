@@ -2,7 +2,9 @@
 include("./db_connect/postgress_connect.php");
 /** @var $connect - переменная из postgress_connect.php с текцщим подключением к бд*/
 
+$username = urldecode($_GET['username']);
+
 $result = pg_fetch_all(pg_query($connect,
-    "select * from reservation where username='".$_GET['username']."' and status='RENTED'"
+    "select * from reservation where username='$username' and status='RENTED'"
 ));
 echo count($result);
