@@ -14,15 +14,3 @@ pg_query($connect, "
                 VALUES('$uuid', '$username', '$book_uid', '$library_uid', 'RENTED', '".date('Y-m-d H:i:s')."', '".$till_date."');
             ");
 
-
-
-function curl($url, $head_vars = []){
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $head_vars);
-    $html = curl_exec($ch);
-    curl_close($ch);
-    return $html;
-}
-echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode("'$uuid', '$username', '$book_uid', '$library_uid', 'RENTED', '".date('Y-m-d H:i:s')."', '".$till_date."'"));
